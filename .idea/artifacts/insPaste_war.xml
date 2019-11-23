@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="insPaste:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="InsPaste.war">
+      <element id="artifact" artifact-name="insPaste:war exploded" />
+    </root>
+  </artifact>
+</component>

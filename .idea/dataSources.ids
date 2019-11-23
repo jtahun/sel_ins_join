@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="H2 - yuba" uuid="058224d1-5edc-4ca6-8f60-434f1552b8ee">
+    <database-info product="H2" version="1.4.196 (2017-06-10)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.196 (2017-06-10)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="PUBLIC" catalog="YUBA"/>
+    <table name="ADVISOR" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="S_ID" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="I_ID" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_E" columns="S_ID"/>
+      <foreign-key name="CONSTRAINT_E7" columns="I_ID" ref-table="INSTRUCTOR" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="ID" update-rule="1" delete-rule="2" deferrability="2"/>
+      <foreign-key name="CONSTRAINT_E75" columns="S_ID" ref-table="STUDENT" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="ID" update-rule="1" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="BOOK" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfRjk4MkZCOENfQzhGQ180OTBGXzlDRjlfQUQwMDMwREQwRTFBKQ==" autoIncrement="true"/>
+      <column name="BOOKTITLE" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BOOKAUTHOR" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BOOKPRICE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="CONSTRAINT_1" columns="ID"/>
+    </table>
+    <table name="CLASSROOM" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="BUILDING" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ROOM_NUMBER" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CAPACITY" sqlType="DECIMAL" precision="4" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_A" columns="BUILDING,ROOM_NUMBER"/>
+      <exported-key name="CONSTRAINT_A03B" table="SECTION" schema="PUBLIC" catalog="YUBA" columns="BUILDING,ROOM_NUMBER"/>
+    </table>
+    <table name="COURSE" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="COURSE_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DEPT_NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CREDITS" sqlType="DECIMAL" precision="2" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_7" columns="COURSE_ID"/>
+      <foreign-key name="CONSTRAINT_76" columns="DEPT_NAME" ref-table="DEPARTMENT" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="DEPT_NAME" update-rule="1" delete-rule="2" deferrability="2"/>
+      <exported-key name="CONSTRAINT_8D" table="PREREQ" schema="PUBLIC" catalog="YUBA" columns="COURSE_ID"/>
+      <exported-key name="CONSTRAINT_8D2" table="PREREQ" schema="PUBLIC" catalog="YUBA" columns="PREREQ_ID"/>
+      <exported-key name="CONSTRAINT_A03" table="SECTION" schema="PUBLIC" catalog="YUBA" columns="COURSE_ID"/>
+    </table>
+    <table name="DEPARTMENT" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="DEPT_NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BUILDING" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="BUDGET" sqlType="DECIMAL" precision="12" scale="2" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_4" columns="DEPT_NAME"/>
+      <exported-key name="CONSTRAINT_76" table="COURSE" schema="PUBLIC" catalog="YUBA" columns="DEPT_NAME"/>
+      <exported-key name="CONSTRAINT_701" table="INSTRUCTOR" schema="PUBLIC" catalog="YUBA" columns="DEPT_NAME"/>
+      <exported-key name="CONSTRAINT_BA" table="STUDENT" schema="PUBLIC" catalog="YUBA" columns="DEPT_NAME"/>
+    </table>
+    <table name="INSTRUCTOR" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DEPT_NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SALARY" sqlType="DECIMAL" precision="8" scale="2" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_70" columns="ID"/>
+      <foreign-key name="CONSTRAINT_701" columns="DEPT_NAME" ref-table="DEPARTMENT" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="DEPT_NAME" update-rule="1" delete-rule="2" deferrability="2"/>
+      <exported-key name="CONSTRAINT_E7" table="ADVISOR" schema="PUBLIC" catalog="YUBA" columns="I_ID"/>
+      <exported-key name="CONSTRAINT_D4F" table="TEACHES" schema="PUBLIC" catalog="YUBA" columns="ID"/>
+    </table>
+    <table name="PREREQ" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="COURSE_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PREREQ_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_8" columns="COURSE_ID,PREREQ_ID"/>
+      <foreign-key name="CONSTRAINT_8D" columns="COURSE_ID" ref-table="COURSE" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="COURSE_ID" update-rule="1" delete-rule="0" deferrability="2"/>
+      <foreign-key name="CONSTRAINT_8D2" columns="PREREQ_ID" ref-table="COURSE" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="COURSE_ID" update-rule="1" delete-rule="1" deferrability="2"/>
+    </table>
+    <table name="SECTION" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="COURSE_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEC_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEMESTER" sqlType="VARCHAR" precision="6" scale="0" nullable="false" jdbcType="12"/>
+      <column name="YEAR" sqlType="DECIMAL" precision="4" scale="0" nullable="false" jdbcType="3"/>
+      <column name="BUILDING" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ROOM_NUMBER" sqlType="VARCHAR" precision="7" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TIME_SLOT_ID" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_A0" columns="COURSE_ID,SEC_ID,SEMESTER,YEAR"/>
+      <foreign-key name="CONSTRAINT_A03B" columns="BUILDING,ROOM_NUMBER" ref-table="CLASSROOM" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="BUILDING,ROOM_NUMBER" update-rule="1" delete-rule="2" deferrability="2"/>
+      <foreign-key name="CONSTRAINT_A03" columns="COURSE_ID" ref-table="COURSE" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="COURSE_ID" update-rule="1" delete-rule="0" deferrability="2"/>
+      <exported-key name="CONSTRAINT_4BE" table="TAKES" schema="PUBLIC" catalog="YUBA" columns="COURSE_ID,SEC_ID,SEMESTER,YEAR"/>
+      <exported-key name="CONSTRAINT_D4" table="TEACHES" schema="PUBLIC" catalog="YUBA" columns="COURSE_ID,SEC_ID,SEMESTER,YEAR"/>
+    </table>
+    <table name="STUDENT" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DEPT_NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TOT_CRED" sqlType="DECIMAL" precision="3" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_B" columns="ID"/>
+      <foreign-key name="CONSTRAINT_BA" columns="DEPT_NAME" ref-table="DEPARTMENT" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="DEPT_NAME" update-rule="1" delete-rule="2" deferrability="2"/>
+      <exported-key name="CONSTRAINT_E75" table="ADVISOR" schema="PUBLIC" catalog="YUBA" columns="S_ID"/>
+      <exported-key name="CONSTRAINT_4BE6" table="TAKES" schema="PUBLIC" catalog="YUBA" columns="ID"/>
+    </table>
+    <table name="TAKES" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="COURSE_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEC_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEMESTER" sqlType="VARCHAR" precision="6" scale="0" nullable="false" jdbcType="12"/>
+      <column name="YEAR" sqlType="DECIMAL" precision="4" scale="0" nullable="false" jdbcType="3"/>
+      <column name="GRADE" sqlType="VARCHAR" precision="2" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_4B" columns="ID,COURSE_ID,SEC_ID,SEMESTER,YEAR"/>
+      <foreign-key name="CONSTRAINT_4BE" columns="COURSE_ID,SEC_ID,SEMESTER,YEAR" ref-table="SECTION" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="COURSE_ID,SEC_ID,SEMESTER,YEAR" update-rule="1" delete-rule="0" deferrability="2"/>
+      <foreign-key name="CONSTRAINT_4BE6" columns="ID" ref-table="STUDENT" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="ID" update-rule="1" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="TEACHES" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="COURSE_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEC_ID" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEMESTER" sqlType="VARCHAR" precision="6" scale="0" nullable="false" jdbcType="12"/>
+      <column name="YEAR" sqlType="DECIMAL" precision="4" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_D" columns="ID,COURSE_ID,SEC_ID,SEMESTER,YEAR"/>
+      <foreign-key name="CONSTRAINT_D4F" columns="ID" ref-table="INSTRUCTOR" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="ID" update-rule="1" delete-rule="0" deferrability="2"/>
+      <foreign-key name="CONSTRAINT_D4" columns="COURSE_ID,SEC_ID,SEMESTER,YEAR" ref-table="SECTION" ref-schema="PUBLIC" ref-catalog="YUBA" ref-columns="COURSE_ID,SEC_ID,SEMESTER,YEAR" update-rule="1" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="TIME_SLOT" schema="PUBLIC" catalog="YUBA" type="TABLE">
+      <column name="TIME_SLOT_ID" sqlType="VARCHAR" precision="4" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DAY" sqlType="VARCHAR" precision="1" scale="0" nullable="false" jdbcType="12"/>
+      <column name="START_HR" sqlType="DECIMAL" precision="2" scale="0" nullable="false" jdbcType="3"/>
+      <column name="START_MIN" sqlType="DECIMAL" precision="2" scale="0" nullable="false" jdbcType="3"/>
+      <column name="END_HR" sqlType="DECIMAL" precision="2" scale="0" nullable="true" jdbcType="3"/>
+      <column name="END_MIN" sqlType="DECIMAL" precision="2" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="CONSTRAINT_AA" columns="TIME_SLOT_ID,DAY,START_HR,START_MIN"/>
+    </table>
+  </data-source>
+</component>
